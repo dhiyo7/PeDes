@@ -1,6 +1,7 @@
 plugins {
     id 'com.android.application'
     id 'kotlin-android'
+    id 'kotlin-android-extensions'
 }
 
 android {
@@ -30,6 +31,10 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
+
+    androidExtensions {
+        experimental = true
+    }
 }
 
 dependencies {
@@ -53,4 +58,8 @@ dependencies {
     //ui ux, we will use COIL for 100% kotlin project
     implementation "io.coil-kt:coil:0.7.0"
     implementation 'de.hdodenhof:circleimageview:3.0.0'
+
+    //Utils
+    implementation("io.github.cdimascio:dotenv-kotlin:6.2.2")
+
 }
