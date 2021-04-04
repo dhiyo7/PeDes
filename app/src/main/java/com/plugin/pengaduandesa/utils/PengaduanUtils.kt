@@ -1,13 +1,10 @@
 package com.plugin.pengaduandesa.utils
 
 import android.content.Context
-import io.github.cdimascio.dotenv.Dotenv
 
 class PengaduanUtils {
-
-    companion object {
-        val dotenv = Dotenv.configure().load()
-        var API_ENDPOINT = dotenv["MY_ENV_VAR"]
+        companion object {
+        var API_ENDPOINT = "https://complaint-apps.herokuapp.com/"
 
         fun getToken(context: Context) : String? {
             val token = context.getSharedPreferences("USER", Context.MODE_PRIVATE)

@@ -33,24 +33,24 @@ class PengaduanAPI {
 
 interface PengaduanAPIService {
     @FormUrlEncoded
-    @POST("/api/login")
+    @POST("api/login")
     fun login(@Field("email") email: String? = null, @Field("password") password: String? = null):Call<WrappedResponse<User>>
 }
 
 
 data class WrappedResponse<T> (
         @SerializedName("message") var message : String?,
-        @SerializedName("status") var status : Boolean,
+        @SerializedName("status") var status : Int?,
         @SerializedName("data") var data : T?
 ){
-    constructor() : this(null, false, null)
+    constructor() : this(null, null, null)
 }
 
 data class WrappedListResponse<T> (
         @SerializedName("message") var message : String?,
-        @SerializedName("status") var status : Boolean,
+        @SerializedName("status") var status : Int?,
         @SerializedName("results") var result : List<T>
 ){
-    constructor() : this(null, false, listOf())
+    constructor() : this(null, null, listOf())
 
 }
