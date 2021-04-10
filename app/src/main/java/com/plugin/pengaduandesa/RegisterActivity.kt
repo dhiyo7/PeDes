@@ -9,39 +9,29 @@ import com.plugin.pengaduandesa.contracts.LoginActivityContract
 import com.plugin.pengaduandesa.presenters.LoginActivityPresenter
 import com.plugin.pengaduandesa.utils.PengaduanUtils
 import kotlinx.android.synthetic.main.activity_login.*
-import kotlinx.android.synthetic.main.activity_login.view.*
+import kotlinx.android.synthetic.main.activity_register.*
+import kotlinx.android.synthetic.main.activity_register.etPass
 
-class LoginActivity : AppCompatActivity(), LoginActivityContract.View {
+class RegisterActivity : AppCompatActivity(), LoginActivityContract.View {
     private var presenter = LoginActivityPresenter(this)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_login)
+        setContentView(R.layout.activity_register)
         isLoggedIn()
-        presenter = LoginActivityPresenter(this)
-        doLogin()
-        moveRegister()
+        doRegister()
     }
 
-    private fun moveRegister() {
-        etRegister.setOnClickListener {
-            startActivity(
-                Intent(
-                    this,
-                    RegisterActivity::class.java
-                )
-            ).also { finish() }
-        }
-    }
-
-    private fun doLogin() {
-        btnLogin.setOnClickListener {
-            val email = etId.text.toString().trim()
+    private fun doRegister() {
+        btnRegister.setOnClickListener {
+            val name = etName.text.toString().trim()
+            val email = etEmail.text.toString().trim()
             val pass = etPass.text.toString().trim()
-            if (email.isNotEmpty() && pass.isNotEmpty()) {
-                if (pass.length > 5) {
-                    presenter.login(email, pass)
+            val repass = etRePass.text.toString().trim()
+            if (name.isNotEmpty() && email.isNotEmpty() && pass.isNotEmpty() && repass.isNotEmpty()) {
+                if (pass.length > 5 && repass.length > 5 && pass == repass) {
+                    presenter.register(name, email, pass, repass)
                 } else {
-                    toast("Cek password anda")
+                    toast("cek password anda")
                 }
             } else {
                 toast("Isi semua form")
@@ -49,8 +39,9 @@ class LoginActivity : AppCompatActivity(), LoginActivityContract.View {
         }
     }
 
-    override fun toast(message: String) =
-        Toast.makeText(this@LoginActivity, message, Toast.LENGTH_LONG).show()
+    override fun toast(message: String) {
+        Toast.makeText(this@RegisterActivity, message, Toast.LENGTH_LONG).show()
+    }
 
     override fun success(token: String) {
         PengaduanUtils.setToken(this, "Bearer ${token}")
@@ -59,21 +50,25 @@ class LoginActivity : AppCompatActivity(), LoginActivityContract.View {
     }
 
     override fun isLoading(state: Boolean) {
-        progress.visibility= View.VISIBLE
-        btnLogin.isEnabled = !state
+        progresss.visibility = View.VISIBLE
+        btnRegister.isEnabled = !state
     }
 
     override fun idError(err: String?) {
-        inId.error = err
+        inName.error = err
+        inEmail.error = err
+        progresss.visibility = View.INVISIBLE
     }
 
     override fun passwordError(err: String?) {
-        inPass.error = err
+        inPasss.error = err
+        inRePass.error = err
+        progresss.visibility = View.INVISIBLE
     }
 
     override fun notConect() {
-        btnLogin.isEnabled = true
-        progress.isEnabled = false
+        btnRegister.isEnabled = true
+        progresss.visibility = View.INVISIBLE
     }
 
     private fun isLoggedIn() {
