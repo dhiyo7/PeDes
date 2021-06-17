@@ -69,5 +69,4 @@ data class WrappedListResponse<T>(
     @SerializedName("results") var result: List<T>
 ) {
     constructor() : this(null, null, listOf())
-
 }

@@ -7,9 +7,11 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class Pengaduan(
     @SerializedName("id") var id: String? = null,
-    @SerializedName("complaint_category_id") var complaint_category_id: String? = null,
+    @SerializedName("complaint_category") var complaint_category: String? = null,
     @SerializedName("complaint_content") var complaint_content: String? = null,
-    @SerializedName("user_id") var user_id: String? = null,
+    @SerializedName("user") var user: String? = null,
     @SerializedName("status") var status: String? = null,
     @SerializedName("complaint_image") var complaint_image: String? = null,
+    @SerializedName("created_at") var created_at: String? = null,
+    @SerializedName("updated_at") var updated_at: String? = null,
 ) : Parcelable
