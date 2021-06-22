@@ -55,7 +55,7 @@ class LoginActivity : AppCompatActivity(), LoginActivityContract.View {
     override fun success(token: String) {
         PengaduanUtils.setToken(this, "Bearer ${token}")
         println(token)
-        startActivity(Intent(this, HomeActivity::class.java)).also { finish() }
+        startActivity(Intent(this, MainActivity::class.java)).also { finish() }
     }
 
     override fun isLoading(state: Boolean) {
@@ -79,7 +79,7 @@ class LoginActivity : AppCompatActivity(), LoginActivityContract.View {
     private fun isLoggedIn() {
         val token = PengaduanUtils.getToken(this)
         if (token != null) {
-            startActivity(Intent(this, HomeActivity::class.java)).also { finish() }
+            startActivity(Intent(this, MainActivity::class.java)).also { finish() }
         }
     }
 }
