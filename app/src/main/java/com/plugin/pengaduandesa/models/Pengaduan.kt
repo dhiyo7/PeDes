@@ -6,7 +6,7 @@ import kotlinx.android.parcel.Parcelize
 
 @Parcelize
 data class Pengaduan(
-    @SerializedName("id") var id: String? = null,
+    @SerializedName("id") var id: Int? = null,
     @SerializedName("complaint_category") var complaint_category: String? = null,
     @SerializedName("complaint_content") var complaint_content: String? = null,
     @SerializedName("user") var user: String? = null,

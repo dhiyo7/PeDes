@@ -49,9 +49,14 @@ interface PengaduanAPIService {
         @Field("confirm_password") confirm_password: String? = null
     ): Call<WrappedResponse<User>>
 
-    @GET("api/complaint")
-    fun getComplaint(@Header("Authorization") token : String): Call<WrappedListResponse<Pengaduan>>
+    @GET("api/complaint/approved")
+    fun getComplaintApproved(@Header("Authorization") token : String): Call<WrappedListResponse<Pengaduan>>
 
+    @GET("api/complaint/decline")
+    fun getComplaintDecline(@Header("Authorization") token : String): Call<WrappedListResponse<Pengaduan>>
+
+    @GET("api/complaint/waiting")
+    fun getComplaintWaiting(@Header("Authorization") token : String): Call<WrappedListResponse<Pengaduan>>
 }
 
 
@@ -66,7 +71,7 @@ data class WrappedResponse<T>(
 data class WrappedListResponse<T>(
     @SerializedName("message") var message: String?,
     @SerializedName("status") var status: Int?,
-    @SerializedName("results") var result: List<T>
+    @SerializedName("data") var data: List<T>
 ) {
     constructor() : this(null, null, listOf())
 }

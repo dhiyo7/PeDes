@@ -5,30 +5,20 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.plugin.pengaduandesa.R
+import com.plugin.pengaduandesa.adapter.WaitingAdapter
+import com.plugin.pengaduandesa.contracts.PengaduanActivityContract
+import com.plugin.pengaduandesa.models.Pengaduan
+import com.plugin.pengaduandesa.presenters.PengaduanActivityPresenter
+import com.plugin.pengaduandesa.utils.PengaduanUtils
+import kotlinx.android.synthetic.main.fragment_waiting.view.*
 
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+class WaitingFragment : Fragment(), PengaduanActivityContract.View {
 
-/**
- * A simple [Fragment] subclass.
- * Use the [WaitingFragment.newInstance] factory method to
- * create an instance of this fragment.
- */
-class WaitingFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
+    var presenter = PengaduanActivityPresenter(this)
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -38,23 +28,36 @@ class WaitingFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_waiting, container, false)
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment WaitingFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            WaitingFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
-                }
-            }
+    private fun getData() {
+        PengaduanUtils.getToken(activity!!)?.let {
+            presenter.allDataWaiting(it)
+        }
     }
+
+    override fun attachToRecycler(aduan: List<Pengaduan>) {
+        view!!.rvWaiting.apply {
+            val mlayoutManager = LinearLayoutManager(activity)
+            layoutManager = mlayoutManager
+            adapter = WaitingAdapter(aduan, activity!!)
+        }
+    }
+
+    override fun isLoading(state: Boolean) {
+        TODO("Not yet implemented")
+    }
+
+    override fun toast(message: String) {
+        Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun onResume() {
+        super.onResume()
+        getData()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        presenter?.destroy()
+    }
+
 }
