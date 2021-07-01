@@ -49,7 +49,7 @@ class PengaduanActivityPresenter(v: PengaduanActivityContract.View?) :
                         val body = response.body()
                         if (body != null && body.status == 200) {
                             view?.attachToRecycler(body.data)
-                            println("DATA WAITING : ${body.data}")
+                            println("DATA APPROVE : ${body.data}")
                         } else {
                             view?.toast("ada yang tidak beres")
                         }
@@ -75,7 +75,7 @@ class PengaduanActivityPresenter(v: PengaduanActivityContract.View?) :
                         val body = response.body()
                         if (body != null && body.status == 200) {
                             view?.attachToRecycler(body.data)
-                            println("DATA WAITING : ${body.data}")
+                            println("DATA DECLINE : ${body.data}")
                         } else {
                             view?.toast("ada yang tidak beres")
                         }

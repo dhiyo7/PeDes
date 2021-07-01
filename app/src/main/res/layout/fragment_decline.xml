@@ -6,9 +6,10 @@
     tools:context=".fragment.DeclineFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvDecline"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Decline" />
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"/>
 
 </FrameLayout>
