@@ -1,14 +1,18 @@
 package com.plugin.pengaduandesa.webservices
 
 import com.google.gson.annotations.SerializedName
+import com.plugin.pengaduandesa.models.Category
 import com.plugin.pengaduandesa.models.Pengaduan
 import com.plugin.pengaduandesa.models.User
 import com.plugin.pengaduandesa.utils.PengaduanUtils
+import okhttp3.MultipartBody
 import okhttp3.OkHttpClient
+import okhttp3.RequestBody
 import retrofit2.Call
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import retrofit2.http.*
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 class PengaduanAPI {
@@ -57,6 +61,21 @@ interface PengaduanAPIService {
 
     @GET("api/complaint/waiting")
     fun getComplaintWaiting(@Header("Authorization") token : String): Call<WrappedListResponse<Pengaduan>>
+
+    @GET("api/complaint-category")
+    fun getCategory(
+        @Header("Authorization") token : String
+    ) : Call<WrappedListResponse<Category>>
+
+    @Multipart
+    @POST("api/complaint")
+    fun postComplaint(
+        @Header("Authorization") token : String,
+        @Part("complaint_category_id") complaint_category_id : RequestBody,
+        @Part("complaint_content") complaint_content : RequestBody,
+        @Part complaint_image_id: MultipartBody.Part
+
+    ) : Call<WrappedResponse<Pengaduan>>
 }
 
 
@@ -69,9 +88,7 @@ data class WrappedResponse<T>(
 }
 
 data class WrappedListResponse<T>(
-    @SerializedName("message") var message: String?,
-    @SerializedName("status") var status: Int?,
+    @SerializedName("message") var message: String,
+    @SerializedName("status") var status: Int,
     @SerializedName("data") var data: List<T>
-) {
-    constructor() : this(null, null, listOf())
-}
+)
