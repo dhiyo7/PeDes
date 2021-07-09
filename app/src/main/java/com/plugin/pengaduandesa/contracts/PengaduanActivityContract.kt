@@ -1,6 +1,9 @@
 package com.plugin.pengaduandesa.contracts
 
+import com.plugin.pengaduandesa.models.Category
 import com.plugin.pengaduandesa.models.Pengaduan
+import okhttp3.MultipartBody
+import okhttp3.RequestBody
 
 interface PengaduanActivityContract {
     /* Approved */
@@ -14,5 +17,17 @@ interface PengaduanActivityContract {
         fun allDataWaiting(token : String)
         fun allDataApproved(token : String)
         fun allDataDecline(token : String)
+    }
+
+    interface CreatePengaduanView {
+        fun attachToSpinner(category: List<Category>)
+        fun showToast(message : String)
+        fun successPost();
+    }
+
+    interface CreatePengaduanInteractor {
+        fun postComplaint(token: String, complaint_category_id: RequestBody, complaint_content: RequestBody, complaint_image: MultipartBody.Part)
+        fun getCategory(token : String)
+        fun destroy()
     }
 }

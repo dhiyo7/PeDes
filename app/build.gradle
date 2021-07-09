@@ -66,4 +66,7 @@ dependencies {
     //Utils
     implementation("io.github.cdimascio:dotenv-kotlin:6.2.2")
 
+    // android image picker
+    implementation 'com.github.esafirm:android-image-picker:3.0.0-beta1'
+
 }
