@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.plugin.pengaduandesa.contracts.LoginActivityContract
+import com.plugin.pengaduandesa.models.User
 import com.plugin.pengaduandesa.presenters.LoginActivityPresenter
 import com.plugin.pengaduandesa.utils.PengaduanUtils
 import kotlinx.android.synthetic.main.activity_login.*
@@ -43,7 +44,7 @@ class RegisterActivity : AppCompatActivity(), LoginActivityContract.View {
         Toast.makeText(this@RegisterActivity, message, Toast.LENGTH_LONG).show()
     }
 
-    override fun success(token: String) {
+    override fun success(token: String, list: User?) {
         PengaduanUtils.setToken(this, "Bearer ${token}")
         println(token)
         startActivity(Intent(this, MainActivity::class.java)).also { finish() }

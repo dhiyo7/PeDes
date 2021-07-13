@@ -24,6 +24,7 @@
             android:src="@drawable/no_image_user" />
 
         <TextView
+            android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Ipul"
@@ -74,6 +75,7 @@
                     android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/tvEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="iplu@gmail.com"
