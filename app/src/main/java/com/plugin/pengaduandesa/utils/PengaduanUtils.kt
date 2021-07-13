@@ -19,6 +19,19 @@ class PengaduanUtils {
             }
         }
 
+        fun setList(context: Context, value : String){
+            val pref = context.getSharedPreferences("USERDATA", Context.MODE_PRIVATE)
+            pref.edit().apply { 
+                putString("USERDATA", value)
+                apply()
+            }
+        }
+        
+        fun getList(context: Context) : String?{
+            val list = context.getSharedPreferences("USERDATA", Context.MODE_PRIVATE)
+            return list?.getString("USERDATA", null)
+        }
+
         fun clearToken(context: Context) {
             val pref = context.getSharedPreferences("USER", Context.MODE_PRIVATE)
             pref.edit().clear().apply()
