@@ -32,16 +32,16 @@ class ApproveFragment : Fragment(), PengaduanActivityContract.View {
     }
 
     private fun getData() {
-        PengaduanUtils.getToken(activity!!)?.let {
+        PengaduanUtils.getToken(requireActivity())?.let {
             presenter.allDataApproved(it)
         }
     }
 
     override fun attachToRecycler(aduan: List<Pengaduan>) {
-        view!!.rvApprove.apply {
+        view?.rvApprove?.apply {
             val mlayoutManager = LinearLayoutManager(activity)
             layoutManager = mlayoutManager
-            adapter = ApprovedAdapter(aduan, activity!!)
+            adapter = ApprovedAdapter(aduan, requireActivity())
         }
     }
 

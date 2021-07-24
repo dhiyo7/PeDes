@@ -1,19 +1,18 @@
 package com.plugin.pengaduandesa.fragment
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import com.google.gson.Gson
-import com.google.gson.reflect.TypeToken
 import com.plugin.pengaduandesa.LoginActivity
-import com.plugin.pengaduandesa.R
 import com.plugin.pengaduandesa.databinding.FragmentProfileBinding
 import com.plugin.pengaduandesa.models.User
 import com.plugin.pengaduandesa.utils.PengaduanUtils
-import java.lang.reflect.Type
 
 class ProfileFragment : Fragment() {
     private var _binding : FragmentProfileBinding? = null
@@ -27,6 +26,11 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         funLogout()
         getUserData()
+
+        binding.fab.setOnClickListener {
+            openWa()
+        }
+
         return binding.root
     }
 
@@ -47,5 +51,15 @@ class ProfileFragment : Fragment() {
             PengaduanUtils.clearToken(requireActivity())
             startActivity(Intent(activity, LoginActivity::class.java).also{ activity?.finish() })
         }
+    }
+
+    private fun openWa(){
+        var number : String = "6285602518653"
+        var url : String = "https://api.whatsapp.com/send?phone="+number;
+
+        val intent = Intent(Intent.ACTION_VIEW);
+        intent.setPackage("com.whatsapp")
+        intent.setData(Uri.parse(url))
+        startActivity(intent)
     }
 }

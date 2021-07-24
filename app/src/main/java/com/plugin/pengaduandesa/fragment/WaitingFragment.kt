@@ -29,16 +29,16 @@ class WaitingFragment : Fragment(), PengaduanActivityContract.View {
     }
 
     private fun getData() {
-        PengaduanUtils.getToken(activity!!)?.let {
+        PengaduanUtils.getToken(requireActivity())?.let {
             presenter.allDataWaiting(it)
         }
     }
 
     override fun attachToRecycler(aduan: List<Pengaduan>) {
-        view!!.rvWaiting.apply {
+        view?.rvWaiting?.apply {
             val mlayoutManager = LinearLayoutManager(activity)
             layoutManager = mlayoutManager
-            adapter = WaitingAdapter(aduan, activity!!)
+            adapter = WaitingAdapter(aduan, requireActivity())
         }
     }
 
