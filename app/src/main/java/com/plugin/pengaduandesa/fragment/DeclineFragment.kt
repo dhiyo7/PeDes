@@ -29,16 +29,16 @@ class DeclineFragment : Fragment(), PengaduanActivityContract.View {
     }
 
     private fun getData() {
-        PengaduanUtils.getToken(activity!!)?.let {
+        PengaduanUtils.getToken(requireActivity())?.let {
             presenter.allDataDecline(it)
         }
     }
 
     override fun attachToRecycler(aduan: List<Pengaduan>) {
-        view!!.rvDecline.apply {
+        view?.rvDecline?.apply {
             val mlayoutManager = LinearLayoutManager(activity)
             layoutManager = mlayoutManager
-            adapter = DeclineAdapter(aduan, activity!!)
+            adapter = DeclineAdapter(aduan, requireActivity())
         }
     }
 

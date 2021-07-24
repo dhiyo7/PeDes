@@ -20,6 +20,12 @@ class RegisterActivity : AppCompatActivity(), LoginActivityContract.View {
         setContentView(R.layout.activity_register)
         isLoggedIn()
         doRegister()
+
+        textLogin.setOnClickListener {
+            startActivity(Intent(this@RegisterActivity, LoginActivity::class.java)).also {
+                finish()
+            }
+        }
     }
 
     private fun doRegister() {
