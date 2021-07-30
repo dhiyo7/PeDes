@@ -49,7 +49,7 @@ class ProfileFragment : Fragment() {
     private fun funLogout(){
         binding.btnLogout.setOnClickListener {
             PengaduanUtils.clearToken(requireActivity())
-            startActivity(Intent(activity, LoginActivity::class.java).also{ activity?.finish() })
+            startActivity(Intent(activity, LoginActivity::class.java).also{ activity?.finishAffinity() })
         }
     }
 

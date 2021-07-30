@@ -45,6 +45,13 @@ interface PengaduanAPIService {
     ): Call<WrappedResponse<User>>
 
     @FormUrlEncoded
+    @POST("api/save-token")
+    fun saveDeviceToken(
+        @Header("Authorization") token : String,
+        @Field("device_token") device_token : String
+    ) : Call<WrappedResponse<String>>
+
+    @FormUrlEncoded
     @POST("api/register")
     fun register(
         @Field("name") name: String? = null,
