@@ -54,6 +54,37 @@ class LoginActivityPresenter(v: LoginActivityContract.View?) : LoginActivityCont
         })
     }
 
+    override fun saveDeviceToken(token: String, device_token: String) {
+        val request = api.saveDeviceToken(token , device_token)
+        request.enqueue(object : Callback<WrappedResponse<String>>{
+            override fun onResponse(
+                call: Call<WrappedResponse<String>>,
+                response: Response<WrappedResponse<String>>
+            ) {
+                if(response.isSuccessful){
+                    val body = response.body()
+                    if(body != null){
+                        body.message?.let { view?.toast(it) }
+                    }else{
+                        view?.toast(body?.message!!)
+
+                    }
+                }else{
+                    view?.toast(response.message())
+                    println("BODY "+ response.message())
+                    println("RESPONSE "+ response)
+                }
+            }
+
+            override fun onFailure(call: Call<WrappedResponse<String>>, t: Throwable) {
+                view?.toast("Tidak bisa koneksi ke server")
+                println(t.message)
+            }
+
+        })
+    }
+
+
     override fun register(email: String, name: String, password: String, confirm_password: String) {
         view?.isLoading(true)
         api.register(email, name, password, confirm_password).enqueue(object : Callback<WrappedResponse<User>>{

@@ -19,6 +19,19 @@ class PengaduanUtils {
             }
         }
 
+        fun getDeviceToken(context: Context): String? {
+            val token = context.getSharedPreferences("DEVICE_TOKEN", Context.MODE_PRIVATE)
+            return token?.getString("DEVICE_TOKEN", null)
+        }
+
+        fun setDeviceToken(context: Context, token: String) {
+            val pref = context.getSharedPreferences("DEVICE_TOKEN", Context.MODE_PRIVATE)
+            pref.edit().apply {
+                putString("DEVICE_TOKEN", token)
+                apply()
+            }
+        }
+
         fun setList(context: Context, value : String){
             val pref = context.getSharedPreferences("USERDATA", Context.MODE_PRIVATE)
             pref.edit().apply { 

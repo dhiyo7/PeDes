@@ -59,7 +59,13 @@ class LoginActivity : AppCompatActivity(), LoginActivityContract.View {
         var json : String = gson.toJson(list)
         PengaduanUtils.setList(this, json)
         PengaduanUtils.setToken(this, "Bearer ${token}")
-        println(token)
+        val deviceToken = PengaduanUtils.getDeviceToken(this)
+        if(deviceToken != null || deviceToken != "UNDEFINED"){
+            presenter?.saveDeviceToken("Bearer "+token, deviceToken!!)
+            startActivity(Intent(this@LoginActivity, MainActivity::class.java)).also{
+                finish()
+            }
+        }
         startActivity(Intent(this, MainActivity::class.java)).also { finish() }
     }
 
