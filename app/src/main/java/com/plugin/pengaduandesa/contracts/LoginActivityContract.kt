@@ -19,7 +19,7 @@ interface LoginActivityContract {
     interface Interaction {
         fun validate(id: String, password: String): Boolean
         fun login(email: String, password: String)
-        fun register(email: String, name: String, password: String, confirm_password: String)
+        fun register(nik: String, email: String, password: String, confirm_password: String)
         fun saveDeviceToken(token : String, device_token : String)
         fun destroy()
     }

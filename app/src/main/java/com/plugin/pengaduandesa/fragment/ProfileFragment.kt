@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import com.google.gson.Gson
+import com.plugin.pengaduandesa.ComplaintByUserActivity
 import com.plugin.pengaduandesa.LoginActivity
 import com.plugin.pengaduandesa.databinding.FragmentProfileBinding
 import com.plugin.pengaduandesa.models.User
@@ -26,6 +27,7 @@ class ProfileFragment : Fragment() {
         // Inflate the layout for this fragment
         funLogout()
         getUserData()
+        getComplaintByUser()
 
         binding.fab.setOnClickListener {
             openWa()
@@ -38,10 +40,10 @@ class ProfileFragment : Fragment() {
         var listUser : User;
         val list = PengaduanUtils.getList(requireActivity())
         var gson = Gson()
-//        var type : Type = TypeToken<User>().type
         listUser = gson.fromJson(list, User::class.java)
 
         binding.tvName.text = listUser.name
+        binding.tvNIK.text = listUser.nik
         binding.tvEmail.text = listUser.email
 
     }
@@ -50,6 +52,13 @@ class ProfileFragment : Fragment() {
         binding.btnLogout.setOnClickListener {
             PengaduanUtils.clearToken(requireActivity())
             startActivity(Intent(activity, LoginActivity::class.java).also{ activity?.finishAffinity() })
+        }
+    }
+
+    private fun getComplaintByUser(){
+        binding.complaintList.setOnClickListener {
+            val intent = Intent(requireActivity(), ComplaintByUserActivity::class.java)
+            startActivity(intent)
         }
     }
 

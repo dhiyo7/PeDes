@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "315931471740",
+    "project_id": "aduan-9fc86",
+    "storage_bucket": "aduan-9fc86.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:315931471740:android:f3fc89f5c61f3fdbb8bef9",
+        "android_client_info": {
+          "package_name": "com.plugin.pengaduandesa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "315931471740-oe0j6ss81e2qoakkao1te5tn0ms5hiqa.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC6ljjX-He4ocsJMVIaTxqLCq15JLlMDgQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "315931471740-oe0j6ss81e2qoakkao1te5tn0ms5hiqa.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

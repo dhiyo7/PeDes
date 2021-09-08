@@ -43,11 +43,15 @@ class DeclineFragment : Fragment(), PengaduanActivityContract.View {
     }
 
     override fun isLoading(state: Boolean) {
-        TODO("Not yet implemented")
+        view?.loadingDecline?.visibility = if(state) View.VISIBLE else View.INVISIBLE
     }
 
     override fun toast(message: String) {
         Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun emptyData() {
+        view?.emptyDataDecline?.visibility = View.VISIBLE
     }
 
     override fun onResume() {

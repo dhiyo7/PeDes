@@ -30,13 +30,13 @@ class RegisterActivity : AppCompatActivity(), LoginActivityContract.View {
 
     private fun doRegister() {
         btnRegister.setOnClickListener {
-            val name = etName.text.toString().trim()
+            val nik = etNIK.text.toString().trim()
             val email = etEmail.text.toString().trim()
             val pass = etPass.text.toString().trim()
             val repass = etRePass.text.toString().trim()
-            if (name.isNotEmpty() && email.isNotEmpty() && pass.isNotEmpty() && repass.isNotEmpty()) {
+            if (nik.isNotEmpty() && email.isNotEmpty() && pass.isNotEmpty() && repass.isNotEmpty()) {
                 if (pass.length > 5 && repass.length > 5 && pass == repass) {
-                    presenter.register(name, email, pass, repass)
+                    presenter.register(nik, email, pass, repass)
                 } else {
                     toast("cek password anda")
                 }
@@ -51,18 +51,16 @@ class RegisterActivity : AppCompatActivity(), LoginActivityContract.View {
     }
 
     override fun success(token: String, list: User?) {
-        PengaduanUtils.setToken(this, "Bearer ${token}")
-        println(token)
-        startActivity(Intent(this, MainActivity::class.java)).also { finish() }
+        startActivity(Intent(this, LoginActivity::class.java)).also { finish() }
     }
 
     override fun isLoading(state: Boolean) {
-        progresss.visibility = View.VISIBLE
+        progresss.visibility = if(state) View.VISIBLE else View.INVISIBLE
         btnRegister.isEnabled = !state
     }
 
     override fun idError(err: String?) {
-        inName.error = err
+        inNIK.error = err
         inEmail.error = err
         progresss.visibility = View.INVISIBLE
     }

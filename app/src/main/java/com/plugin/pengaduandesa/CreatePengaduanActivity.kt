@@ -1,5 +1,6 @@
 package com.plugin.pengaduandesa
 
+import android.app.Activity
 import android.app.AlertDialog
 import android.content.Intent
 import android.net.Uri
@@ -10,6 +11,7 @@ import android.widget.*
 import coil.api.load
 import com.esafirm.imagepicker.features.ImagePickerConfig
 import com.esafirm.imagepicker.features.ImagePickerMode
+import com.esafirm.imagepicker.features.ReturnMode
 import com.esafirm.imagepicker.features.registerImagePicker
 import com.esafirm.imagepicker.model.Image
 import com.plugin.pengaduandesa.contracts.PengaduanActivityContract
@@ -33,7 +35,7 @@ class CreatePengaduanActivity : AppCompatActivity(), PengaduanActivityContract.C
     private var choosedImage: Image? = null
 
     private val imagePickerLauncher = registerImagePicker {
-        choosedImage = it[0]
+        choosedImage = if(it.size == 0)  null else it[0]
         showImage()
     }
 
@@ -50,6 +52,14 @@ class CreatePengaduanActivity : AppCompatActivity(), PengaduanActivityContract.C
 
         toolbarAction()
         doSave()
+        intentMap()
+    }
+
+    private fun intentMap (){
+        binding.btnPickLocation.setOnClickListener {
+            val intent = Intent(this@CreatePengaduanActivity, PickLocationActivity::class.java);
+            startActivityForResult(intent, 1);
+        }
     }
 
     private fun getData() {
@@ -79,6 +89,8 @@ class CreatePengaduanActivity : AppCompatActivity(), PengaduanActivityContract.C
                 MultipartBody.FORM, binding.etComplaintContent.text.toString()
             )
             val complaintCategory : RequestBody = RequestBody.create(MultipartBody.FORM, selectedObject.id)
+            val latitude : RequestBody = RequestBody.create(MultipartBody.FORM, binding.etLatitude.text.toString())
+            val longitude : RequestBody = RequestBody.create(MultipartBody.FORM, binding.etLongitude.text.toString())
 
             val originalFile = File(choosedImage?.path!!)
 
@@ -93,12 +105,7 @@ class CreatePengaduanActivity : AppCompatActivity(), PengaduanActivityContract.C
                 imagePart
             )
 
-            println("Token " + token)
-            println("Complaint Category ID " + complaintCategory)
-            println("Complaint Content " + complaintContent)
-            println("Complaint Image " + image)
-
-            presenter?.postComplaint(token!!, complaintCategory, complaintContent, image)
+            presenter?.postComplaint(token!!, complaintCategory, complaintContent, latitude, longitude, image)
         }
     }
 
@@ -106,7 +113,7 @@ class CreatePengaduanActivity : AppCompatActivity(), PengaduanActivityContract.C
         val config = ImagePickerConfig{
             mode = ImagePickerMode.SINGLE
             isIncludeVideo = false
-            isShowCamera = false
+            isShowCamera = true
         }
 
         imagePickerLauncher.launch(config)
@@ -123,6 +130,12 @@ class CreatePengaduanActivity : AppCompatActivity(), PengaduanActivityContract.C
         action!!.title = "Create Pengaduan"
         action.setDisplayHomeAsUpEnabled(true)
         action.setDisplayShowHomeEnabled(true)
+    }
+
+    override fun onSupportNavigateUp(): Boolean {
+        super.onSupportNavigateUp()
+        onBackPressed()
+        return true
     }
 
     override fun attachToSpinner(category: List<Category>) {
@@ -155,12 +168,22 @@ class CreatePengaduanActivity : AppCompatActivity(), PengaduanActivityContract.C
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val selectedObject = parent?.selectedItem as Category
-        Toast.makeText(this@CreatePengaduanActivity, "ID ${selectedObject.id}", Toast.LENGTH_LONG).show()
     }
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
         TODO("Not yet implemented")
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode == 1){
+            if(resultCode == Activity.RESULT_OK){
+                val lat = data!!.getStringExtra("LATITUDE")
+                val long = data!!.getStringExtra("LONGITUDE")
 
+                binding.etLatitude.setText(lat)
+                binding.etLongitude.setText(long)
+            }
+        }
+    }
 }

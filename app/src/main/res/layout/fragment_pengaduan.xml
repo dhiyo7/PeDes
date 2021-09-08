@@ -130,6 +130,9 @@
             android:layout_gravity="bottom|end"
             android:layout_marginRight="16dp"
             android:layout_marginBottom="20dp"
+            android:tintMode="@color/white"
+            android:backgroundTint="#228B22"
+            app:backgroundTint="#228B22"
             app:srcCompat="@drawable/add" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

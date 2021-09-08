@@ -5,12 +5,13 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.plugin.pengaduandesa.fragment.ApproveFragment
 import com.plugin.pengaduandesa.fragment.DeclineFragment
+import com.plugin.pengaduandesa.fragment.FinishedFragment
 import com.plugin.pengaduandesa.fragment.WaitingFragment
 
 class ViewPagerAdapter(supportFragmentManager: FragmentManager) :
     FragmentPagerAdapter(supportFragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
     override fun getCount(): Int {
-        return 3
+        return 4
     }
 
     override fun getItem(position: Int): Fragment {
@@ -21,8 +22,11 @@ class ViewPagerAdapter(supportFragmentManager: FragmentManager) :
             1 -> {
                 ApproveFragment()
             }
-            else -> {
+            2 -> {
                 DeclineFragment()
+            }
+            else -> {
+                FinishedFragment()
             }
         }
     }
@@ -31,7 +35,8 @@ class ViewPagerAdapter(supportFragmentManager: FragmentManager) :
         return when(position){
             0 -> "Waiting"
             1 -> "Approve"
-            else -> "Decline"
+            2 -> "Decline"
+            else -> "Finished"
 
         }
     }

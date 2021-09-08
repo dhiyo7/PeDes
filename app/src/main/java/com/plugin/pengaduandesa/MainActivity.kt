@@ -1,8 +1,11 @@
 package com.plugin.pengaduandesa
 
+import android.Manifest
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.Fragment
+import com.github.florent37.runtimepermission.kotlin.askPermission
 import com.plugin.pengaduandesa.adapter.ViewPagerAdapter
 import com.plugin.pengaduandesa.databinding.ActivityMainBinding
 import com.plugin.pengaduandesa.fragment.HomeFragment
@@ -20,13 +23,34 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 //        setupViewPager()
         bottomNavigation()
+        askPermission()
     }
 
-//    private fun setupViewPager() {
-//        val loginViewPager = ViewPagerAdapter(supportFragmentManager)
-//        binding.ViewPager.adapter = loginViewPager
-//        binding.TabLayout.setupWithViewPager(binding.ViewPager)
-//    }
+    private fun askPermission() {
+        askPermission(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION) {
+        }.onDeclined { e ->
+            if(e.hasDenied()){
+                e.denied.forEach(){
+
+                }
+
+                AlertDialog.Builder(this)
+                    .setMessage("Please Accept Our Permission")
+                    .setPositiveButton("Yes"){_ , _ ->
+                        e.askAgain()
+                    }
+                    .setNegativeButton("NO"){dialog, _ ->
+                        dialog.dismiss()
+                    }
+                    .show()
+            }
+
+            if(e.hasForeverDenied()){
+                e.foreverDenied.forEach(){}
+                    e.goToSettings()
+            }
+        }
+    }
 
     private fun bottomNavigation(){
         setFragment(HomeFragment())

@@ -46,11 +46,15 @@ class ApproveFragment : Fragment(), PengaduanActivityContract.View {
     }
 
     override fun isLoading(state: Boolean) {
-        TODO("Not yet implemented")
+        view?.loadingApprove?.visibility = if(state) View.VISIBLE else View.INVISIBLE
     }
 
     override fun toast(message: String) {
         Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun emptyData() {
+        view?.emptyDataApproved?.visibility = View.VISIBLE
     }
 
     override fun onResume() {

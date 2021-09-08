@@ -1,14 +1,18 @@
 package com.plugin.pengaduandesa.presenters
 
 import android.util.Log
+import android.widget.Toast
 import com.plugin.pengaduandesa.contracts.LoginActivityContract
 import com.plugin.pengaduandesa.models.User
 import com.plugin.pengaduandesa.utils.PengaduanUtils
 import com.plugin.pengaduandesa.webservices.PengaduanAPI
 import com.plugin.pengaduandesa.webservices.WrappedResponse
+import org.json.JSONObject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.security.AccessController.getContext
+
 
 class LoginActivityPresenter(v: LoginActivityContract.View?) : LoginActivityContract.Interaction {
     private var view: LoginActivityContract.View? = v
@@ -39,8 +43,8 @@ class LoginActivityPresenter(v: LoginActivityContract.View?) : LoginActivityCont
                         view?.toast("Login gagal, cek email dan password")
                     }
                 } else {
-                    Log.e("Wew", response.message())
-                    view?.toast("Ada yang tidak beres, coba lagi nanti, atau hubungi admin")
+                    var jsonError = JSONObject(response.errorBody()?.string())
+                    view?.toast(jsonError.getString("error"))
                 }
                 view?.isLoading(false)
             }
@@ -85,9 +89,9 @@ class LoginActivityPresenter(v: LoginActivityContract.View?) : LoginActivityCont
     }
 
 
-    override fun register(email: String, name: String, password: String, confirm_password: String) {
+    override fun register(nik: String, email: String, password: String, confirm_password: String) {
         view?.isLoading(true)
-        api.register(email, name, password, confirm_password).enqueue(object : Callback<WrappedResponse<User>>{
+        api.register(nik, email, password, confirm_password).enqueue(object : Callback<WrappedResponse<User>>{
             override fun onResponse(
                 call: Call<WrappedResponse<User>>,
                 response: Response<WrappedResponse<User>>
@@ -101,7 +105,8 @@ class LoginActivityPresenter(v: LoginActivityContract.View?) : LoginActivityCont
                         view?.toast("Register Gagal, cek semua form")
                     }
                 } else {
-                    view?.toast("Ada yang tidak beres")
+                    var jsonError = JSONObject(response.errorBody()?.string())
+                    view?.toast(jsonError.getString("error"))
                 }
                 view?.isLoading(false)
             }
