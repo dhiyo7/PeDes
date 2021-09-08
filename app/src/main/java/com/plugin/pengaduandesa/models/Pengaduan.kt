@@ -12,6 +12,8 @@ data class Pengaduan(
     @SerializedName("user") var user: String? = null,
     @SerializedName("status") var status: String? = null,
     @SerializedName("complaint_image") var complaint_image: String? = null,
+    @SerializedName("latitude") var latitude: String? = null,
+    @SerializedName("longitude") var longitude: String? = null,
     @SerializedName("created_at") var created_at: String? = null,
     @SerializedName("updated_at") var updated_at: String? = null,
 ) : Parcelable

@@ -22,9 +22,11 @@ class CreatePengaduanActivityPresenter(v : PengaduanActivityContract.CreatePenga
         token: String,
         complaint_category_id: RequestBody,
         complaint_content: RequestBody,
+        latitude: RequestBody,
+        longitude: RequestBody,
         complaint_image: MultipartBody.Part
     ) {
-        val request = api.postComplaint(token, complaint_category_id, complaint_content, complaint_image)
+        val request = api.postComplaint(token, complaint_category_id, complaint_content, latitude, longitude, complaint_image)
 
         request.enqueue(object : Callback<WrappedResponse<Pengaduan>>{
             override fun onResponse(

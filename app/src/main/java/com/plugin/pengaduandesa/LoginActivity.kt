@@ -70,7 +70,7 @@ class LoginActivity : AppCompatActivity(), LoginActivityContract.View {
     }
 
     override fun isLoading(state: Boolean) {
-        progress.visibility= View.VISIBLE
+        progress.visibility= if(state) View.VISIBLE else View.INVISIBLE
         btnLogin.isEnabled = !state
     }
 

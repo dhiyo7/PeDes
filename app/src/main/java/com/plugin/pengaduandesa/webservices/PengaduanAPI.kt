@@ -54,7 +54,7 @@ interface PengaduanAPIService {
     @FormUrlEncoded
     @POST("api/register")
     fun register(
-        @Field("name") name: String? = null,
+        @Field("NIK") nik: String? = null,
         @Field("email") email: String? = null,
         @Field("password") password: String? = null,
         @Field("confirm_password") confirm_password: String? = null
@@ -69,6 +69,12 @@ interface PengaduanAPIService {
     @GET("api/complaint/waiting")
     fun getComplaintWaiting(@Header("Authorization") token : String): Call<WrappedListResponse<Pengaduan>>
 
+    @GET("api/complaint/finished")
+    fun getComplaintFinished(@Header("Authorization") token : String): Call<WrappedListResponse<Pengaduan>>
+
+    @GET("api/complaint/by-user")
+    fun getComplaintByUser(@Header("Authorization") token : String): Call<WrappedListResponse<Pengaduan>>
+
     @GET("api/complaint-category")
     fun getCategory(
         @Header("Authorization") token : String
@@ -80,8 +86,9 @@ interface PengaduanAPIService {
         @Header("Authorization") token : String,
         @Part("complaint_category_id") complaint_category_id : RequestBody,
         @Part("complaint_content") complaint_content : RequestBody,
+        @Part("latitude") latitude : RequestBody,
+        @Part("longitude") longitude : RequestBody,
         @Part complaint_image_id: MultipartBody.Part
-
     ) : Call<WrappedResponse<Pengaduan>>
 }
 

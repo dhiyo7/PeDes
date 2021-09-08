@@ -1,11 +1,13 @@
 package com.plugin.pengaduandesa.adapter
 
 import android.content.Context
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import coil.api.load
+import com.plugin.pengaduandesa.DetailPengaduanActivity
 import com.plugin.pengaduandesa.R
 import com.plugin.pengaduandesa.models.Pengaduan
 import kotlinx.android.synthetic.main.list_item_waiting.view.*
@@ -28,6 +30,13 @@ class ApprovedAdapter(private var data: List<Pengaduan>, private var context: Co
             itemView.tvStatus.text = pengaduan.complaint_category
             itemView.tvLokasi.text = pengaduan.created_at
             itemView.ivImage.load(pengaduan.complaint_image)
+            itemView.setOnClickListener {
+                val intent = Intent(context, DetailPengaduanActivity::class.java).apply {
+                    putExtra("COMPLAINT", pengaduan)
+                }
+
+                context.startActivity(intent)
+            }
         }
     }
 }

@@ -43,11 +43,15 @@ class WaitingFragment : Fragment(), PengaduanActivityContract.View {
     }
 
     override fun isLoading(state: Boolean) {
-        TODO("Not yet implemented")
+        view?.loadingWaiting?.visibility = if(state) View.VISIBLE else View.INVISIBLE
     }
 
     override fun toast(message: String) {
         Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
+    }
+
+    override fun emptyData() {
+        view?.emptyDataWaiting?.visibility = View.VISIBLE
     }
 
     override fun onResume() {

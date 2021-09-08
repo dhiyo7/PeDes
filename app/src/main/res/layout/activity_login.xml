@@ -11,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:outlineAmbientShadowColor="@color/design_default_color_primary"
+        android:outlineAmbientShadowColor="#228B22"
         android:visibility="invisible" />
 
     <LinearLayout
@@ -28,7 +28,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Email"
-            app:boxStrokeColor="@color/design_default_color_primary"
+            app:boxStrokeColor="#228B22"
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -45,7 +45,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
-            app:boxStrokeColor="@color/design_default_color_primary"
+            app:boxStrokeColor="#228B22"
             app:errorEnabled="true"
             app:passwordToggleEnabled="true">
 

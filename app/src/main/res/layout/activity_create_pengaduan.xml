@@ -50,10 +50,23 @@
             app:boxStrokeWidth="0dp"
             android:layout_marginTop="10dp">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etComplaintContent"
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inComplaintContent"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:hint="Complaint Content"
+                app:boxStrokeColor="#228B22"
+                app:errorEnabled="true"
+                android:layout_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etComplaintContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
 
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -81,8 +94,65 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            android:weightSum="2">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inLatitude"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Latitude"
+                app:boxStrokeColor="#228B22"
+                android:layout_marginRight="5dp"
+                app:errorEnabled="true"
+                android:enabled="false"
+                android:layout_weight="1">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etLatitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/inLongitude"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Longitude"
+                app:boxStrokeColor="#228B22"
+                app:errorEnabled="true"
+                android:layout_marginLeft="5dp"
+                android:layout_weight="1"
+                android:enabled="false">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etLongitude"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
         <com.google.android.material.button.MaterialButton
             android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:id="@+id/btnPickLocation"
+            android:text="Pick Location"
+            android:textAllCaps="false"
+            android:layout_gravity="end"
+            android:layout_height="50dp"/>
+
+        <com.google.android.material.button.MaterialButton
             android:layout_width="match_parent"
             android:id="@+id/btnSave"
             android:text="Simpan"
